@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.5.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<context:component-scan base-package="com.*"></context:component-scan>
+	<mvc:annotation-driven />
+
+	<!-- static resource 설정 -->
+	<mvc:resources location="/WEB-INF/resources/css/"
+		mapping="/css/**" />
+	<mvc:resources location="/WEB-INF/resources/js/"
+		mapping="/js/**" />
+	<mvc:resources location="/WEB-INF/resources/img/"
+		mapping="/img/**" />
+	<!-- html 추가 -->
+	<mvc:resources location="/WEB-INF/static/"
+		mapping="/static/**" />
+
+	<!-- /WEB-INF/views/ list .jsp -->
+	<bean id="viewResovler"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName"
+			value="oracle.jdbc.OracleDriver" />
+		<property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="ggam" />
+		<property name="password" value="1234" />
+	</bean>
+
+	<!-- mybatis 와 스프링 연결을 위한 SqlSessionFactoryBean 객체 사용 DB 연결 및 sql 명령 실행을 
+		담당 SqlSessionFactoryBean sqlSessionFactory = new SqlSessionFactoryBean(); 
+		sqlSessionFactory.setDataSource (dataSource); //propery sqlSessionFactory.setMapperLocations 
+		(classpath:myBatis/sqlmaps/*.xml"); //propery -->
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath:mappers/**/*Mapper.xml" />
+	</bean>
+
+	<!-- SqlSessionTemplate 설정 SqlSessionTemplate sqlSession = new SqlSessionTemplate( 
+		sqlSessionFactory ); -->
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory"
+			ref="sqlSessionFactory">
+		</constructor-arg>
+
+	</bean>
+
+	<!-- MultipartResolver 설정 : 파일업로드 처리 -->
+	<!-- 최대 업로드 크기설정 100000000 : 100M -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="100000000" />
+		<property name="maxInMemorySize" value="100000000" />
+	</bean>
+
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="kimm9803@gmail.com" />
+		<property name="password" value="isfm stlk lvsj jxpx" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.auth">true	</prop>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.debug">true</prop>
+				<prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+				<prop key="mail.smtp.ssl.protocols">TLSv1.2</prop>
+			</props>
+		</property>
+	</bean>
+	<!-- Interceptor 설정 추가 -->
+
+	<!-- 공통 Interceptor -->
+	<!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/**"/> <mvc:exclude-mapping 
+		path="/resources/**"/> <mvc:exclude-mapping path="/static/**"/> <bean id="authInterceptor" 
+		class="com.green.interceptor.AuthInterceptor"> </bean> </mvc:interceptor> 
+		</mvc:interceptors> -->
+</beans>
