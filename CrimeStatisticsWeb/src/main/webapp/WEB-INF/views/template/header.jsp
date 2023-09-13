@@ -3,13 +3,14 @@
     pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"></script>
   <style>
     /* Change background color of .navbar-dark class */
     .navbar-dark {
@@ -52,7 +53,7 @@
 
     .navbar-toggler {
       order: 0; /* Change the order to appear in the center */
-      margin-right: 15px; /* Add some space to the right of the toggle button */
+      margin-right: 45px; /* Add some space to the right of the toggle button */
     }
 
     .ml-auto {
@@ -88,26 +89,35 @@
     </button>
 
     <div class=""> <!-- Align the logo to the left -->
-      <a class="navbar-brand" href="/">
-        <img src="/img/logo.png" alt="Logo" height="80" width="80">
+      <a class="navbar-brand" href="http://localhost:8080/">
+        <img src="/img/logo.png" alt="Logo" height="80" width="80"> <!-- Set the height of the logo to match the navbar height -->
       </a>
     </div>
 
     <div class="ml-auto  custom-a"> <!-- Align the login/sign-up links slightly off the right -->
       <c:choose>
-			<c:when test="${not empty sessionScope.memberid}">
-				<a class="login-link" href="/member/logout">로그아웃</a>
-				<a class="login-link" href="#">장바구니</a>
-				<a class="login-link" href="/member/mypage">마이페이지</a>
-			</c:when>
-			<c:otherwise>
-				<a class="login-link" href="/member/login-page">로그인</a>
-				<a class="login-link" href="/member/signup-page">회원가입</a>
-			</c:otherwise>
-		</c:choose>
+        <c:when test="${not empty sessionScope.memberid}">
+          <style>
+            .navbar-toggler {
+              margin-right: 200px; 
+            }
+          </style>  
+          <a class="login-link" href="/member/logout">로그아웃</a>
+          <a class="login-link" href="#">장바구니</a>
+          <a class="login-link" href="/member/mypage">마이페이지</a>
+        </c:when>
+        <c:otherwise>
+          <a class="login-link" href="/member/login-page">로그인</a>
+          <a class="login-link" href="/member/signup-page">회원가입</a>
+        </c:otherwise>
+      </c:choose>
     </div>
 
     <div class="offcanvas offcanvas-end text-bg-dark custom-mt" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel" >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Menu</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
       <div class="offcanvas-body" style= "background-color: rgba(8, 35, 56, 0.4)">
         <ul class="navbar-nav">
           <li class="nav-item">
@@ -118,12 +128,11 @@
                 지역 별 게시판
             </a>
             <ul class="dropdown-menu dropdown-menu-dark">
-                <li><a class="dropdown-item" href="#">서울</a></li>
+                <li><a  class="dropdown-item" href="#">서울</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">경기도</a></li>
-              </ul>
+                <li><a  class="dropdown-item" href="#">경기도</a></li>
+            </ul>
           </li>
-
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
              쇼핑몰
@@ -137,8 +146,8 @@
         </ul>
       </div>
     </div>
-
   </div>
 </nav>
+
 </body>
 </html>

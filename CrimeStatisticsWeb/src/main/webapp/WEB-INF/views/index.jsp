@@ -10,13 +10,21 @@
 <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <title>home</title>
+<style>
+  .svg-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 45vh; /* 원하는 높이로 조정하세요 */
+  }
+</style>
 </head>
 <body>
 	<header><%@ include file="template/header.jsp"%></header>
-	<main style="text-align: center; margin-top: 300px; margin-bottom: 76px;">
-		<h1>Hello World!!!</h1> 		
-    	<h2>자유게시판</h2>
-	</main>
+	
+	<div class="svg-container">
+		<object data="/img/southKoreaHigh.svg" width="500" height="800"></object>
+	</div>
 
 	<footer><%@ include file="template/footer.jsp"%></footer>
 </body>
