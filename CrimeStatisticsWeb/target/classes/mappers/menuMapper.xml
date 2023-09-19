@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Menus">
+
+	<!--메뉴목록조회-->
+	<select id="MenuList" resultType="com.spring.menu.vo.MenuVo">
+     SELECT
+     MENU_ID,
+     MENU_NAME,
+     MENU_CATE
+     FROM MENUS
+     ORDER BY MENU_ID ASC
+	</select>
+	
+	<!-- 메뉴등록 -->
+	<insert id="insertMenu">
+     INSERT INTO MENUS (MENU_ID, MENU_NAME, MENU_CATE)
+     VALUES
+     ((SELECT NVL(MAX(MENU_ID), 0)+1  FROM  MENUS)
+     ,#{menu_name}
+     ,#{menu_cate}
+     )
+	</insert>
+	<!-- 메뉴삭제 -->
+    <delete id="deleteMenu">
+   
+   	   DELETE   FROM  MENUS
+   	     WHERE  MENU_ID  =  #{ menu_id } 
+   
+   </delete>
+   <!-- 메뉴수정 -->
+   	<select id="getMenu" resultType="com.spring.menu.vo.MenuVo">
+     SELECT
+     MENU_ID,
+     MENU_NAME,
+     MENU_CATE
+     FROM MENUS
+     WHERE MENU_ID = #{menu_id}
+	</select>
+	
+	<update id="updateMenu">
+	UPDATE MENUS
+	SET MENU_NAME = #{menu_name}, MENU_CATE = #{menu_cate}
+	WHERE MENU_ID = #{menu_id}
+	</update>
+      
+      <select id="MenuName"
+           resultType="java.lang.String">
+   
+   	  SELECT   MENU_NAME
+   	   FROM    MENUS
+   	   WHERE   MENU_ID = #{ menu_id  }     
+   
+   </select>
+</mapper>

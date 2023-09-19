@@ -9,12 +9,56 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <title>Sign Up</title>
+<style>
+  form {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    margin: 0 auto;
+  }
+    
+  /* 버튼 스타일 */
+  button {
+    background-color: #007BFF; /* 버튼 배경색 */
+    color: #fff; /* 글자색 */
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #0056b3; /* 마우스 호버 시 배경색 */
+  }
+
+  /* 입력 창 스타일 */
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  /* 라디오 버튼 스타일 */
+  input[type="radio"] {
+    margin-right: 5px;
+  }
+  
+</style>
 </head>
-<body>
+<body style="background-color: #cccccc;">
 	<header><%@ include file="../template/header.jsp"%></header>
-	<main style="margin-left: 700px; margin-bottom: 150px;">
-	<h2>회 원 가 입</h2>
+	
+	<main style="margin-bottom: 150px;">
+	
 		<form action="/member/signup" method="post">
+		    <h2>회 원 가 입</h2>
+		    <br>
 			<div>이름</div>
 			<input type="text" name="name" size="30" autocomplete="off" placeholder="이름을 입력해주세요" required /><br /><br />
 			<div>아이디</div> 

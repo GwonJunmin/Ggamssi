@@ -56,6 +56,7 @@ public class MemberRestController {
 		}
 	}
 	
+	// 비밀번호 찾기
 	@PostMapping("/find-password")
 	@ResponseBody
 	public String findPassword(@RequestParam("memberid") String memberid) {

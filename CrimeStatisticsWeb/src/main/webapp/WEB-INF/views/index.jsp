@@ -17,15 +17,18 @@
     align-items: center;
     height: 45vh; /* 원하는 높이로 조정하세요 */
   }
+  #menu{font-size:30px; text-align: left;}
+  #board{font-size:30px; text-align: left;}
 </style>
 </head>
-<body>
+<body style="background-color: #cccccc;">
 	<header><%@ include file="template/header.jsp"%></header>
 	
-	<div class="svg-container">
+	<div class="svg-container" style="margin-top: 100px;">
 		<object data="/img/southKoreaHigh.svg" width="500" height="800"></object>
-	</div>
-
+	</div>	
+	 <div id="menu"><a href="/menus/list">메뉴 목록</a></div>
+     <div id="menu"><a href="/menus/writeform">메뉴 등록</a></div>
 	<footer><%@ include file="template/footer.jsp"%></footer>
 </body>
 </html>

@@ -37,13 +37,13 @@ public class MemberController {
 	
 	// 로그인 페이지
 	@GetMapping("/login-page")
-	public String loginFrom() {
+	public String memberLoginFrom() {
 		return "member/login";
 	}
 	
 	// 로그인
 	@PostMapping("/login")
-	public String login(MemberVo memberVo, HttpSession session, Model model) {
+	public String memberLogin(MemberVo memberVo, HttpSession session, Model model) {
 		
 		MemberVo loginMember = memberService.login(memberVo);
 		session.setAttribute("memberid", loginMember.getMemberid());
@@ -53,7 +53,7 @@ public class MemberController {
 	
 	// 로그아웃
 	@GetMapping("/logout")
-	public String logout(HttpSession session) {
+	public String memberLogout(HttpSession session) {
 		memberService.logout(session);
 		return "redirect:/";
 	}
@@ -69,7 +69,7 @@ public class MemberController {
 	
 	// 회원 수정
 	@PostMapping("/modify")
-	public String modify(MemberVo memberVo, @RequestParam("newPasswd") String newPasswd) {
+	public String memberModify(MemberVo memberVo, @RequestParam("newPasswd") String newPasswd) {
 		memberVo.setPasswd(newPasswd);
 		memberVo.setAddress(memberVo.getAddress_primary() + " " + memberVo.getAddress_detail());
 		memberVo.setEmail(memberVo.getEmailId() + "@" + memberVo.getEmailDomain());
@@ -79,7 +79,7 @@ public class MemberController {
 	
 	// 회원 탈퇴
 	@PostMapping("/delete")
-	public String delete(HttpSession session) {
+	public String memberDelete(HttpSession session) {
 		String memberid = (String)session.getAttribute("memberid");
 		memberService.memberDelete(memberid);
 		session.invalidate();

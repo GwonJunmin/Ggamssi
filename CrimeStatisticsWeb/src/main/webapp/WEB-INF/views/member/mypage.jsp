@@ -12,7 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <title>My Page</title>
 </head>
-<body>
+<body style="background-color: #cccccc;">
 	<header><%@ include file="../template/header.jsp"%></header>
 	<main style="margin-left: 700px; margin-bottom: 150px;">
 	<h2>My Page</h2>

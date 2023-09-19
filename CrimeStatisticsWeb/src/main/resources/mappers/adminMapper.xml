@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Menus">
+
+	<!-- 관리자 로그인 -->
+	<select id="login" resultType="com.spring.admin.vo.AdminVo">
+		SELECT adminid, passwd, nickname, email
+		FROM admin
+		WHERE adminid = #{adminid} AND passwd = #{passwd}
+	</select>
+	
+	<!-- 카테고리 -->
+	<select id="category" resultType="com.spring.product.vo.CategoryVo">
+		SELECT level, cateName, cateCode, cateCodeRef
+		FROM products_category
+    	START WITH cateCodeRef IS NULL CONNECT BY PRIOR cateCode = cateCodeRef
+	</select>
+</mapper>
