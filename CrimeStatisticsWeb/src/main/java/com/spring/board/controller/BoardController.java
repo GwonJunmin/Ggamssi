@@ -72,7 +72,7 @@ public class BoardController {
 		boardService.insertBoard(vo);
 
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/board/listpage?menu_id=" + vo.getMenu_id());
+		mv.setViewName("redirect:/board/listpage?page=1&perPageNum=10&menu_id=" + vo.getMenu_id());
 		return mv;
 	}
 	// /Board/View?idx=4&menu_id=MENU01
@@ -139,7 +139,7 @@ public class BoardController {
 
 		// 메뉴목록
 		List<MenuVo> menuList = menuService.getMenuList();
-
+        
 
 		// 게시물 목록
 		List<BoardVo> boardList = boardService.listPage(cri);
@@ -147,8 +147,7 @@ public class BoardController {
 		// 페이지
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(boardService.listCount());
-
+		pageMaker.setTotalCount(boardService.listCount(vo));    
 		ModelAndView mv = new ModelAndView();
 
 		mv.addObject("vo", vo);

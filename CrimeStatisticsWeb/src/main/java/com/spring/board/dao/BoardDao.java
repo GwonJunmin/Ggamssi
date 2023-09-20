@@ -21,7 +21,7 @@ public interface BoardDao {
 
 	List<BoardVo> listPage(Criteria cri);
 
-	int listCount();
+	int listCount(BoardVo vo);
 
 
 

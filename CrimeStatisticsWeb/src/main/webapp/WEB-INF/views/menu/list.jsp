@@ -28,7 +28,7 @@
 <body>
    <main>
    	 <h2>메뉴 목록</h2>
-   	  
+   
    	 <table>   	  
    	   <tr>
    	     <td colspan="5" style="text-align:right;padding-right:30px;">

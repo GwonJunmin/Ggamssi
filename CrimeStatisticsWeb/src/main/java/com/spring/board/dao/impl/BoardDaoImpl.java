@@ -61,9 +61,9 @@ public class BoardDaoImpl implements BoardDao {
 	}
 
 	@Override
-	public int listCount() {
+	public int listCount(BoardVo vo) {
 		
-		return sqlSession.selectOne("Board.listCount");
+		return sqlSession.selectOne("Board.listCount",vo);
 	}
 
 	

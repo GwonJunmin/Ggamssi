@@ -59,9 +59,9 @@ public class BoardSerivceImpl implements BoardService {
 	}
 
 	@Override
-	public int listCount() {
+	public int listCount(BoardVo vo) {
 		
-		return boardDao.listCount();
+		return boardDao.listCount(vo);
 	}
 
 }

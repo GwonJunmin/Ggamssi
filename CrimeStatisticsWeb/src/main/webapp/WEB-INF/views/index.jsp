@@ -23,7 +23,7 @@
 </head>
 <body style="background-color: #cccccc;">
 	<header><%@ include file="template/header.jsp"%></header>
-	
+
 	<div class="svg-container" style="margin-top: 100px;">
 		<object data="/img/southKoreaHigh.svg" width="500" height="800"></object>
 	</div>	

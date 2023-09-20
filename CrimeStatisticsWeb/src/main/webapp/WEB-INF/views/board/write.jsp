@@ -37,11 +37,12 @@
         <tr>
           <td colspan="2">
             <button type="submit" class="btn btn-primary">등록</button>
+            <button type="button" class="btn btn-primary" onclick="history.back()">취소</button>
           </td>
         </tr>
       </table>
     </form> 
   </main>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

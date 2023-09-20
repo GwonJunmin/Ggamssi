@@ -10,17 +10,6 @@
     <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
     <!-- 부트스트랩 CSS 링크 추가 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        input { height: 32px; }
-        /* 이하의 스타일은 부트스트랩 클래스와 함께 사용되도록 수정 */
-        #table th:nth-of-type(1) { width: 15%; }
-        #table td:nth-of-type(1) { width: 35%; }
-        #table th:nth-of-type(2) { width: 15%; }
-        #table td:nth-of-type(2) { width: 35%; }
-        input[type=text] { width: 100%; }
-        textarea { width: 100%; height: 300px; padding: 10px; }
-        #td_ta { height: 300px; vertical-align: baseline; }
-    </style>
     <!-- 부트스트랩 JavaScript 및 jQuery 추가 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -51,7 +40,7 @@
             </tr>
             <tr>
                 <th>내용</th>
-                <td colspan="3" id="td_ta">${ vo.cont }</td>
+                <td colspan="3" id="td_ta" style="height:300px;">${ vo.cont }</td>
             </tr>
             <tr>
                 <td colspan="4" style="text-align:left">
@@ -147,5 +136,6 @@
             modal.find('#editCont').val(cont);
         });
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

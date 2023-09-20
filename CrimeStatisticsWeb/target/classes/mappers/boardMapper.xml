@@ -85,14 +85,14 @@
 		SELECT BNUM,MENU_ID, TITLE, CONT, WRITER, REGDATE, READCOUNT,
 		ROW_NUMBER() OVER(ORDER BY BNUM DESC) AS RNUM
 		FROM BOARD
-		
+		WHERE MENU_ID = #{menu_id}
 		) MB
-		WHERE RNUM between #{rowStart} and #{rowEnd} AND MENU_ID = #{menu_id}
+		WHERE RNUM between #{rowStart} and #{rowEnd}
 		ORDER BY BNUM DESC
 	</select>
 	
 	<select id="listCount" resultType = "int">
-	 select count(bnum) from board where bnum > 0
+	 <![CDATA[select count(bnum) from board where menu_id = #{menu_id}]]>
 	</select>
 
 </mapper>
