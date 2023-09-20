@@ -3,77 +3,96 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Board">  
-  
-   <select  id         = "getList"   
-            resultType = "com.spring.board.vo.BoardVo">
-      
-     SELECT      
-        BNUM
-      , MENU_ID
-      , TITLE
-      , CONT
-      , WRITER
-      , TO_CHAR(REGDATE, 'YYYY-MM-DD')  REGDATE
-      , READCOUNT
-	 FROM       BOARD
-	 WHERE      MENU_ID = #{menu_id}
-	 ORDER  BY  BNUM ASC  
-   </select>
-    <!-- 새 게시글 추가 -->
-   <insert id="insertBoard">
-   
-     INSERT  INTO  BOARD (
-       BNUM
-      , MENU_ID
-      , TITLE
-      , CONT
-      , WRITER
-    )  VALUES  (  
-      ( SELECT NVL(MAX(BNUM), 0)+1  FROM  BOARD ),
-      #{ menu_id },
-      #{ title   },
-      #{ cont    },
-      #{ writer  }    
-    )
-   </insert>
-    <!-- 게시물 조회 -->
-      <select id="getView"
-           resultType="com.spring.board.vo.BoardVo">
-      SELECT      
-        BNUM
-      , MENU_ID
-      , TITLE
-      , CONT
-      , WRITER
-      , TO_CHAR(REGDATE, 'YYYY-MM-DD')  REGDATE
-      , READCOUNT
- FROM       BOARD
- WHERE      BNUM   =  #{ bnum  }
-      
-   
-   </select>
-   
-    <update id="readCount">
-   
-      UPDATE     BOARD
-	    SET      READCOUNT = READCOUNT + 1
-	    WHERE    BNUM   = #{ bnum } 
-   
-   </update>
-   
-    <!-- 게시물 수정 -->   
-     <update id="updateBoard">
-   
-      UPDATE     BOARD
-	    SET      TITLE = #{ title }
-	           , CONT  = #{ cont  }
-	    WHERE    BNUM   = #{ bnum } 
-   
-   </update>
-   <!-- 삭제 -->
-   <delete id="deleteBoard">
-          DELETE   FROM  BOARD
-         WHERE  BNUM  =  #{ bnum  } 
-   </delete>
+<mapper namespace="Board">
+
+	<select id="getList" resultType="com.spring.board.vo.BoardVo">
+
+		SELECT
+		BNUM
+		, MENU_ID
+		, TITLE
+		, CONT
+		, WRITER
+		, TO_CHAR(REGDATE, 'YYYY-MM-DD') REGDATE
+		, READCOUNT
+		FROM BOARD
+		WHERE MENU_ID = #{menu_id}
+		ORDER BY BNUM DESC
+	</select>
+	<!-- 새 게시글 추가 -->
+	<insert id="insertBoard">
+
+		INSERT INTO BOARD (
+		BNUM
+		, MENU_ID
+		, TITLE
+		, CONT
+		, WRITER
+		) VALUES (
+		( SELECT NVL(MAX(BNUM), 0)+1 FROM BOARD ),
+		#{ menu_id },
+		#{
+		title },
+		#{ cont },
+		#{ writer }
+		)
+	</insert>
+	<!-- 게시물 조회 -->
+	<select id="getView" resultType="com.spring.board.vo.BoardVo">
+		SELECT
+		BNUM
+		, MENU_ID
+		, TITLE
+		, CONT
+		, WRITER
+		, TO_CHAR(REGDATE, 'YYYY-MM-DD') REGDATE
+		, READCOUNT
+		FROM BOARD
+		WHERE BNUM = #{ bnum }
+
+
+	</select>
+
+	<update id="readCount">
+
+		UPDATE BOARD
+		SET READCOUNT = READCOUNT + 1
+		WHERE BNUM =
+		#{ bnum }
+
+	</update>
+
+	<!-- 게시물 수정 -->
+	<update id="updateBoard">
+
+		UPDATE BOARD
+		SET TITLE = #{ title }
+		, CONT = #{ cont }
+		WHERE BNUM = #{ bnum }
+
+	</update>
+
+	<!-- 삭제 -->
+	<delete id="deleteBoard">
+		DELETE FROM BOARD
+		WHERE BNUM = #{ bnum }
+	</delete>
+	<!-- 게시물 목록 + 페이징 -->
+	<select id="listPage" resultType="com.spring.board.vo.BoardVo"
+		parameterType="com.spring.board.domain.Criteria">
+		SELECT BNUM,MENU_ID,TITLE, CONT, WRITER, TO_CHAR(REGDATE, '""YYYY"년 "MM"월 "DD"일"') REGDATE, READCOUNT
+		FROM (
+		SELECT BNUM,MENU_ID, TITLE, CONT, WRITER, REGDATE, READCOUNT,
+		ROW_NUMBER() OVER(ORDER BY BNUM DESC) AS RNUM
+		FROM BOARD
+		
+		) MB
+		WHERE RNUM between #{rowStart} and #{rowEnd} AND MENU_ID = #{menu_id}
+		ORDER BY BNUM DESC
+	</select>
+	
+	<select id="listCount" resultType = "int">
+	 select count(bnum) from board where bnum > 0
+	</select>
+
 </mapper>

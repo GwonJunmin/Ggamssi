@@ -14,6 +14,7 @@
 
 </head>
 <body>
+<header><%@ include file="../template/header.jsp"%></header>
   <main class="container mt-5">
     <form action="/board/write" method="POST">
         <caption>

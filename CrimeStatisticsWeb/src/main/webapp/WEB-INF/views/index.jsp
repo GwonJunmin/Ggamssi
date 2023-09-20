@@ -29,6 +29,7 @@
 	</div>	
 	 <div id="menu"><a href="/menus/list">메뉴 목록</a></div>
      <div id="menu"><a href="/menus/writeform">메뉴 등록</a></div>
+     <a href="/board/listpage">글 목록(페이징)</a>
 	<footer><%@ include file="template/footer.jsp"%></footer>
 </body>
 </html>

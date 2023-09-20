@@ -2,6 +2,7 @@ package com.spring.board.service;
 
 import java.util.List;
 
+import com.spring.board.domain.Criteria;
 import com.spring.board.vo.BoardVo;
 
 public interface BoardService {
@@ -17,5 +18,11 @@ public interface BoardService {
 	void deleteBoard(BoardVo vo);
 
 	void readCount(BoardVo vo);
+
+	List<BoardVo> listPage(Criteria cri);
+	
+	int listCount();
+
+
 
 }

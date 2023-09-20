@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.board.dao.BoardDao;
+import com.spring.board.domain.Criteria;
 import com.spring.board.service.BoardService;
 import com.spring.board.vo.BoardVo;
 
@@ -50,4 +51,17 @@ public class BoardSerivceImpl implements BoardService {
 		boardDao.readCount(vo);
 		
 	}
+
+	@Override
+	public List<BoardVo> listPage(Criteria cri) {
+		List<BoardVo> boardList = boardDao.listPage(cri);
+		return boardList;
+	}
+
+	@Override
+	public int listCount() {
+		
+		return boardDao.listCount();
+	}
+
 }

@@ -61,7 +61,7 @@
                 <tr>
                     <td colspan="2">
                         <input type="submit" class="btn btn-primary" value="수정" />
-                        <a href="/board/list?menu_id=${ vo.menu_id }" class="btn btn-secondary">목록</a>
+                        <a href="/board/listpage?menu_id=${ vo.menu_id }" class="btn btn-secondary">목록</a>
                         <button type="button" class="btn btn-light" onclick="history.back()">이전으로</button>
                     </td>
                 </tr>

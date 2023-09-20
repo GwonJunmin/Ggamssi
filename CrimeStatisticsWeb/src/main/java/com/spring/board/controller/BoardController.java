@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.board.domain.Criteria;
+import com.spring.board.domain.PageMaker;
 import com.spring.board.domain.ReplyVo;
 import com.spring.board.service.BoardService;
 import com.spring.board.service.ReplyService;
@@ -70,7 +72,7 @@ public class BoardController {
 		boardService.insertBoard(vo);
 
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/board/list?menu_id=" + vo.getMenu_id());
+		mv.setViewName("redirect:/board/listpage?menu_id=" + vo.getMenu_id());
 		return mv;
 	}
 	// /Board/View?idx=4&menu_id=MENU01
@@ -119,7 +121,7 @@ public class BoardController {
 		boardService.updateBoard(vo);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/board/list?menu_id=" +  vo.getMenu_id());
+		mv.setViewName("redirect:/board/listpage?menu_id=" +  vo.getMenu_id());
 		return mv;
 	}
 	//게시물 삭제
@@ -127,7 +129,36 @@ public class BoardController {
 	public ModelAndView delete(BoardVo vo) {
 		boardService.deleteBoard(vo);
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:/board/list?menu_id=" +  vo.getMenu_id());
+		mv.setViewName("redirect:/board/listpage?menu_id=" +  vo.getMenu_id());
 		return mv;
 	}
+	
+	// 게시물 목록 + 페이징 추가
+	@GetMapping("/listpage")
+	public ModelAndView listpage(BoardVo vo, Criteria cri) {
+
+		// 메뉴목록
+		List<MenuVo> menuList = menuService.getMenuList();
+
+
+		// 게시물 목록
+		List<BoardVo> boardList = boardService.listPage(cri);
+		
+		// 페이지
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(boardService.listCount());
+
+		ModelAndView mv = new ModelAndView();
+
+		mv.addObject("vo", vo);
+		mv.addObject("pageMaker",pageMaker);
+		mv.addObject("menuList", menuList);
+		mv.addObject("boardList", boardList);
+		mv.setViewName("board/listpage");
+		return mv;
+
+	}
+
+	
 }

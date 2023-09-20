@@ -13,4 +13,6 @@ public interface ReplyDao {
 
 	void deleteReply(ReplyVo vo);
 
+	void updateReply(ReplyVo vo);
+
 }
